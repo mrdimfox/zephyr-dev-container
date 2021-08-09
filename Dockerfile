@@ -53,6 +53,7 @@ RUN dpkg --add-architecture i386 && \
 	libglib2.0-dev \
 	libgtk2.0-0 \
 	liblocale-gettext-perl \
+    libncurses5 \
 	libncurses5-dev \
 	libpcap-dev \
 	libpopt0 \
