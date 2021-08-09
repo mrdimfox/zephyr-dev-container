@@ -6,18 +6,18 @@
 
 name: Docker Image CI
 
-on: [pull_request]
+on: [push]
 
 env:
-  DOCKER_USER: zephyrprojectrtos
-  DOCKER_REPO: ci
-  DOCKER_REPO2: zephyr-build
+  DOCKER_USER: mrlisdim
+  DOCKER_REPO: zephyr_base_container
+  DOCKER_REPO2: zephyr_dev_container
 
 jobs:
 
   build:
     runs-on: ubuntu-latest
-    if: github.repository == 'zephyrproject-rtos/docker-image'
+    if: github.repository == 'mrdimfox/zephyr-dev-container'
     steps:
     - uses: actions/checkout@v2
 
