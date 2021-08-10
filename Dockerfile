@@ -150,13 +150,6 @@ RUN useradd -u $UID -m -g user -G plugdev user \
 	&& echo 'user ALL = NOPASSWD: ALL' > /etc/sudoers.d/user \
 	&& chmod 0440 /etc/sudoers.d/user
 
-RUN wget ${WGET_ARGS} https://static.rust-lang.org/rustup/rustup-init.sh && \
-	chmod +x rustup-init.sh && \
-	./rustup-init.sh -y && \
-	. $HOME/.cargo/env && \
-	cargo install uefi-run && \
-	rm -f ./rustup-init.sh
-
 # Set the locale
 ENV ZEPHYR_TOOLCHAIN_VARIANT=zephyr
 ENV ZEPHYR_SDK_INSTALL_DIR=/opt/toolchains/zephyr-sdk-${ZSDK_VERSION}
