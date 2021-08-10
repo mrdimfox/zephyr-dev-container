@@ -28,13 +28,6 @@ RUN wget ${WGET_ARGS} \
     && dpkg -i ${JLINK_DEB} \
     && rm ${JLINK_DEB}
 
-# Some hack for cortex-debug VS Code plugin. It use arm-none-eabi-gdb and arm-none-eabi-objdump
-RUN mkdir /cortex-debug-helpers
-ADD ./cortex-debug-helpers/arm-none-eabi-gdb /cortex-debug-helpers
-ADD ./cortex-debug-helpers/arm-none-eabi-objdump /cortex-debug-helpers
-RUN chmod +x /cortex-debug-helpers/arm-none-eabi-gdb && \
-    chmod +x /cortex-debug-helpers/arm-none-eabi-objdump 
-
 ENV DISPLAY=host.docker.internal:0
 
 ADD ./entrypoint.sh /home/user/entrypoint.sh
