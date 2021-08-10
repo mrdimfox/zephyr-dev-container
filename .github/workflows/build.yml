@@ -6,7 +6,7 @@
 
 name: Docker Image CI
 
-on: [pull_request]
+on: [push]
 
 env:
   DOCKER_USER: mrlisdim
