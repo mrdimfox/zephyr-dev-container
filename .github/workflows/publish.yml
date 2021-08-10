@@ -6,7 +6,9 @@
 
 name: Docker Publish
 
-on: [push]
+on:
+  release:
+    types: [published]
 
 env:
   DOCKER_USER: mrlisdim
