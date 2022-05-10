@@ -14,6 +14,10 @@ concurrency:
   group: ${{ github.ref }}
   cancel-in-progress: true
 
+env:
+  - BASE=mrlisdim/zephyr_base_container
+  - DEVELOPER=mrlisdim/zephyr_dev_container
+
 jobs:
   build:
     name: Build
@@ -45,14 +49,14 @@ jobs:
       uses: docker/metadata-action@v3
       with:
         images: |
-          localhost:5000/zephyrproject-rtos/ci
+          localhost:5000/$BASE
 
     - name: Generate local metadata for Developer image
       id: meta_developer
       uses: docker/metadata-action@v3
       with:
         images: |
-          localhost:5000/zephyrproject-rtos/zephyr-build
+          localhost:5000/$DEVELOPER
 
     - name: Generate push metadata for CI image
       if: ${{ github.event_name != 'pull_request' }}
@@ -60,8 +64,7 @@ jobs:
       uses: docker/metadata-action@v3
       with:
         images: |
-          docker.io/zephyrprojectrtos/ci
-          ghcr.io/zephyrproject-rtos/ci
+          docker.io/$BASE
 
     - name: Generate push metadata for Developer image
       if: ${{ github.event_name != 'pull_request' }}
@@ -69,8 +72,7 @@ jobs:
       uses: docker/metadata-action@v3
       with:
         images: |
-          docker.io/zephyrprojectrtos/zephyr-build
-          ghcr.io/zephyrproject-rtos/zephyr-build
+          docker.io/$DEVELOPER
 
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v1
@@ -100,7 +102,7 @@ jobs:
         tags: ${{ steps.meta_developer.outputs.tags }}
         labels: ${{ steps.meta_developer.outputs.labels }}
         build-args: |
-          BASE_IMAGE=localhost:5000/zephyrproject-rtos/ci:${{ steps.meta_ci.outputs.version }}
+          BASE_IMAGE=localhost:5000/$BASE:${{ steps.meta_ci.outputs.version }}
 
     - name: Login to DockerHub
       if: ${{ github.event_name != 'pull_request' }}
@@ -110,24 +112,26 @@ jobs:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-    - name: Login to GitHub Container Registry
-      if: ${{ github.event_name != 'pull_request' }}
-      uses: docker/login-action@v1
-      with:
-        registry: ghcr.io
-        username: ${{ github.repository_owner }}
-        password: ${{ secrets.GITHUB_TOKEN }}
+    # No need for me (@mrdimfox)
+    #
+    # - name: Login to GitHub Container Registry
+    #   if: ${{ github.event_name != 'pull_request' }}
+    #   uses: docker/login-action@v1
+    #   with:
+    #     registry: ghcr.io
+    #     username: ${{ github.repository_owner }}
+    #     password: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Push CI docker image
+    - name: Push Base docker image
       if: ${{ github.event_name != 'pull_request' }}
       uses: akhilerm/tag-push-action@v2.0.0
       with:
-        src: localhost:5000/zephyrproject-rtos/ci:${{ steps.meta_ci.outputs.version }}
+        src: localhost:5000/$BASE:${{ steps.meta_ci.outputs.version }}
         dst: ${{ steps.meta_ci_push.outputs.tags }}
 
     - name: Push Developer docker image
       if: ${{ github.event_name != 'pull_request' }}
       uses: akhilerm/tag-push-action@v2.0.0
       with:
-        src: localhost:5000/zephyrproject-rtos/zephyr-build:${{ steps.meta_developer.outputs.version }}
+        src: localhost:5000/$DEVELOPER:${{ steps.meta_developer.outputs.version }}
         dst: ${{ steps.meta_developer_push.outputs.tags }}
