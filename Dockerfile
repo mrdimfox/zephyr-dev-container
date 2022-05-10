@@ -23,9 +23,9 @@ RUN apt-get -y update && \
 	apt-get install --no-install-recommends -y \
 		software-properties-common \
 		lsb-release \
-		autoconf \
-		automake \
-		bison \
+		# autoconf \
+		# automake \
+		# bison \
 		build-essential \
 		ca-certificates \
 		ccache \
@@ -37,7 +37,7 @@ RUN apt-get -y update && \
 		dos2unix \
 		doxygen \
 		file \
-		flex \
+		# flex \
 		g++ \
 		gawk \
 		gcc \
@@ -48,7 +48,7 @@ RUN apt-get -y update && \
 		gperf \
 		gtk-sharp2 \
 		help2man \
-		iproute2 \
+		# iproute2 \
 		lcov \
 		libglib2.0-dev \
 		libgtk2.0-0 \
@@ -73,16 +73,16 @@ RUN apt-get -y update && \
 		python3-ply \
 		python3-setuptools \
 		python-is-python3 \
-		qemu \
-		rsync \
-		socat \
+		# qemu \
+		# rsync \
+		# socat \
 		srecord \
 		sudo \
-		texinfo \
+		# texinfo \
 		unzip \
 		valgrind \
 		wget \
-		ovmf \
+		# ovmf \
 		xz-utils
 
 # Install multi-lib gcc (x86 only)

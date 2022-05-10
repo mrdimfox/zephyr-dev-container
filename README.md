@@ -6,16 +6,21 @@
 
 - uefi-run;
 - BSIM;
-- toolchains:
-    - arc-zephyr-elf;
-    - arc64-zephyr-elf;
-    - nios2-zephyr-elf;
-    - sparc-zephyr-elf;
-    - xtensa.
+- packages:
+  - qemu;
+  - rsync;
+  - socat;
+  - texinfo;
+  - ovmf;
+  - bison;
+  - autoconf;
+  - automake;
+  - flex;
+  - iproute2.
 
 **Added**:
 
-- cmake-format.
+- cmake-format (to dev image).
 
 <details>
 
