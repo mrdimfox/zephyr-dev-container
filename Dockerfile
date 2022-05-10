@@ -6,7 +6,7 @@ ARG CMAKE_VERSION=3.20.5
 ARG RENODE_VERSION=1.13.0
 ARG LLVM_VERSION=12
 ARG BSIM_VERSION=v1.0.3
-ARG WGET_ARGS="-q --show-progress --progress=bar:force:noscroll --no-check-certificate"
+ARG WGET_ARGS="-q --no-check-certificate"
 
 ARG UID=1000
 ARG GID=1000
