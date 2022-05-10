@@ -49,14 +49,14 @@ jobs:
       uses: docker/metadata-action@v3
       with:
         images: |
-          localhost:5000/$BASE
+          localhost:5000/${{ env.BASE }}
 
     - name: Generate local metadata for Developer image
       id: meta_developer
       uses: docker/metadata-action@v3
       with:
         images: |
-          localhost:5000/$DEVELOPER
+          localhost:5000/${{ env.DEVELOPER }}
 
     - name: Generate push metadata for CI image
       if: ${{ github.event_name != 'pull_request' }}
@@ -64,7 +64,7 @@ jobs:
       uses: docker/metadata-action@v3
       with:
         images: |
-          docker.io/$BASE
+          docker.io/${{ env.BASE }}
 
     - name: Generate push metadata for Developer image
       if: ${{ github.event_name != 'pull_request' }}
@@ -72,7 +72,7 @@ jobs:
       uses: docker/metadata-action@v3
       with:
         images: |
-          docker.io/$DEVELOPER
+          docker.io/${{ env.DEVELOPER }}
 
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v1
@@ -102,7 +102,7 @@ jobs:
         tags: ${{ steps.meta_developer.outputs.tags }}
         labels: ${{ steps.meta_developer.outputs.labels }}
         build-args: |
-          BASE_IMAGE=localhost:5000/$BASE:${{ steps.meta_ci.outputs.version }}
+          BASE_IMAGE=localhost:5000/${{ env.BASE }}:${{ steps.meta_ci.outputs.version }}
 
     - name: Login to DockerHub
       if: ${{ github.event_name != 'pull_request' }}
@@ -126,12 +126,12 @@ jobs:
       if: ${{ github.event_name != 'pull_request' }}
       uses: akhilerm/tag-push-action@v2.0.0
       with:
-        src: localhost:5000/$BASE:${{ steps.meta_ci.outputs.version }}
+        src: localhost:5000/${{ env.BASE }}:${{ steps.meta_ci.outputs.version }}
         dst: ${{ steps.meta_ci_push.outputs.tags }}
 
     - name: Push Developer docker image
       if: ${{ github.event_name != 'pull_request' }}
       uses: akhilerm/tag-push-action@v2.0.0
       with:
-        src: localhost:5000/$DEVELOPER:${{ steps.meta_developer.outputs.version }}
+        src: localhost:5000/${{ env.DEVELOPER }}:${{ steps.meta_developer.outputs.version }}
         dst: ${{ steps.meta_developer_push.outputs.tags }}
