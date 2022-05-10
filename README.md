@@ -1,5 +1,28 @@
 # Zephyr Docker Images
 
+> See the original description under the spoiler.
+
+**Removed extras form fork** (image size decreasing reasons):
+
+- uefi-run;
+- BSIM;
+- toolchains:
+    - arc-zephyr-elf;
+    - arc64-zephyr-elf;
+    - nios2-zephyr-elf;
+    - sparc-zephyr-elf;
+    - xtensa.
+
+**Added**:
+
+- cmake-format.
+
+<details>
+
+<summary>↓ Original repo README content ↓</summary>
+
+# Zephyr Docker Images
+
 This repository contains the Dockerfiles for the following images:
 
 - **CI Image (_ci_):** contains only the minimal set of software needed for CI operation.
@@ -90,3 +113,5 @@ On a Ubuntu host, this can be done by running the following command:
 ```
 vncviewer localhost:5900
 ```
+
+</details>
