@@ -175,7 +175,13 @@ RUN mkdir -p /opt/toolchains && \
 	wget ${WGET_ARGS} https://github.com/zephyrproject-rtos/sdk-ng/releases/download/v${ZSDK_VERSION}/zephyr-sdk-${ZSDK_VERSION}_linux-${HOSTTYPE}.tar.gz && \
 	tar xf zephyr-sdk-${ZSDK_VERSION}_linux-${HOSTTYPE}.tar.gz && \
 	zephyr-sdk-${ZSDK_VERSION}/setup.sh -t all -h -c && \
-	rm zephyr-sdk-${ZSDK_VERSION}_linux-${HOSTTYPE}.tar.gz
+	rm zephyr-sdk-${ZSDK_VERSION}_linux-${HOSTTYPE}.tar.gz \
+    # Strip unused toolchains
+    && rm -rf /opt/zephyr-sdk/arc-zephyr-elf \
+    && rm -rf /opt/zephyr-sdk/arc64-zephyr-elf \
+    && rm -rf /opt/zephyr-sdk/nios2-zephyr-elf \
+    && rm -rf /opt/zephyr-sdk/sparc-zephyr-elf \
+    && rm -rf /opt/zephyr-sdk/xtensa
 
 # Clean up stale packages
 RUN apt-get clean -y && \
