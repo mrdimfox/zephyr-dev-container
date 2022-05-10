@@ -4,6 +4,7 @@
 
 **Removed extras form fork** (image size decreasing reasons):
 
+- linux/arm64 images;
 - uefi-run;
 - BSIM;
 - all toolchains but:
