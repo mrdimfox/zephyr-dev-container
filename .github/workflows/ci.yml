@@ -15,8 +15,8 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  - BASE=mrlisdim/zephyr_base_container
-  - DEVELOPER=mrlisdim/zephyr_dev_container
+  BASE: mrlisdim/zephyr_base_container
+  DEVELOPER: mrlisdim/zephyr_dev_container
 
 jobs:
   build:
