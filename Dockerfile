@@ -172,16 +172,11 @@ RUN wget ${WGET_ARGS} -O - https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key 
 # Install Zephyr SDK
 RUN mkdir -p /opt/toolchains && \
 	cd /opt/toolchains && \
-	wget ${WGET_ARGS} https://github.com/zephyrproject-rtos/sdk-ng/releases/download/v${ZSDK_VERSION}/zephyr-sdk-${ZSDK_VERSION}_linux-${HOSTTYPE}.tar.gz && \
-	tar xf zephyr-sdk-${ZSDK_VERSION}_linux-${HOSTTYPE}.tar.gz && \
-	zephyr-sdk-${ZSDK_VERSION}/setup.sh -t all -h -c && \
-	rm zephyr-sdk-${ZSDK_VERSION}_linux-${HOSTTYPE}.tar.gz \
-    # Strip unused toolchains
-    && rm -rf /opt/zephyr-sdk/arc-zephyr-elf \
-    && rm -rf /opt/zephyr-sdk/arc64-zephyr-elf \
-    && rm -rf /opt/zephyr-sdk/nios2-zephyr-elf \
-    && rm -rf /opt/zephyr-sdk/sparc-zephyr-elf \
-    && rm -rf /opt/zephyr-sdk/xtensa
+	wget ${WGET_ARGS} https://github.com/zephyrproject-rtos/sdk-ng/releases/download/v${ZSDK_VERSION}/zephyr-sdk-${ZSDK_VERSION}_linux-${HOSTTYPE}_minimal.tar.gz && \
+	tar xf zephyr-sdk-${ZSDK_VERSION}_linux-${HOSTTYPE}_minimal.tar.gz && \
+	# zephyr-sdk-${ZSDK_VERSION}/setup.sh -t all -h -c && \
+	zephyr-sdk-${ZSDK_VERSION}/setup.sh -t arm-zephyr-eabi -t riscv64-zephyr-elf -h -c && \
+	rm zephyr-sdk-${ZSDK_VERSION}_linux-${HOSTTYPE}_minimal.tar.gz
 
 # Clean up stale packages
 RUN apt-get clean -y && \

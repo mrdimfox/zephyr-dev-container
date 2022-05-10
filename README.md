@@ -6,6 +6,9 @@
 
 - uefi-run;
 - BSIM;
+- all toolchains but:
+  - arm-zephyr-eabi;
+  - riscv64-zephyr-elf.
 - packages:
   - qemu;
   - rsync;
