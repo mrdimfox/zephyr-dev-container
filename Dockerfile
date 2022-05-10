@@ -145,24 +145,24 @@ RUN pip3 install wheel pip -U &&\
 		     GitPython
 
 # Install BSIM
-RUN mkdir -p /opt/bsim && \
-	cd /opt/bsim && \
-	rm -f repo && \
-	wget ${WGET_ARGS} https://storage.googleapis.com/git-repo-downloads/repo && \
-	chmod a+x ./repo && \
-	python3 ./repo init -u https://github.com/BabbleSim/manifest.git -m zephyr_docker.xml -b ${BSIM_VERSION} --depth 1 &&\
-	python3 ./repo sync && \
-	make everything -j 8 && \
-	echo ${BSIM_VERSION} > ./version && \
-	chmod ag+w . -R
+# RUN mkdir -p /opt/bsim && \
+# 	cd /opt/bsim && \
+# 	rm -f repo && \
+# 	wget ${WGET_ARGS} https://storage.googleapis.com/git-repo-downloads/repo && \
+# 	chmod a+x ./repo && \
+# 	python3 ./repo init -u https://github.com/BabbleSim/manifest.git -m zephyr_docker.xml -b ${BSIM_VERSION} --depth 1 &&\
+# 	python3 ./repo sync && \
+# 	make everything -j 8 && \
+# 	echo ${BSIM_VERSION} > ./version && \
+# 	chmod ag+w . -R
 
 # Install uefi-run utility
-RUN wget ${WGET_ARGS} https://static.rust-lang.org/rustup/rustup-init.sh && \
-	chmod +x rustup-init.sh && \
-	./rustup-init.sh -y && \
-	. $HOME/.cargo/env && \
-	cargo install uefi-run --root /usr && \
-	rm -f ./rustup-init.sh
+# RUN wget ${WGET_ARGS} https://static.rust-lang.org/rustup/rustup-init.sh && \
+# 	chmod +x rustup-init.sh && \
+# 	./rustup-init.sh -y && \
+# 	. $HOME/.cargo/env && \
+# 	cargo install uefi-run --root /usr && \
+# 	rm -f ./rustup-init.sh
 
 # Install LLVM and Clang
 RUN wget ${WGET_ARGS} -O - https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - && \
