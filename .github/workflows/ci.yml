@@ -127,7 +127,7 @@ jobs:
       uses: akhilerm/tag-push-action@v2.0.0
       with:
         src: localhost:5000/${{ env.BASE }}:${{ steps.meta_ci.outputs.version }}
-        dst: 
+        dst: |
           ${{ steps.meta_ci_push.outputs.tags }}
           localhost:5000/${{ env.BASE }}:latest
 
@@ -136,6 +136,6 @@ jobs:
       uses: akhilerm/tag-push-action@v2.0.0
       with:
         src: localhost:5000/${{ env.DEVELOPER }}:${{ steps.meta_developer.outputs.version }}
-        dst:
+        dst: |
           ${{ steps.meta_developer_push.outputs.tags }}
           localhost:5000/${{ env.DEVELOPER }}:latest
