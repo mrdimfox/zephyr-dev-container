@@ -123,15 +123,19 @@ jobs:
     #     password: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Push Base docker image
-      if: ${{ github.event_name != 'pull_request' }}
+      if: ${{ !contains(github.ref, 'refs/heads/master') }}
       uses: akhilerm/tag-push-action@v2.0.0
       with:
         src: localhost:5000/${{ env.BASE }}:${{ steps.meta_ci.outputs.version }}
-        dst: ${{ steps.meta_ci_push.outputs.tags }}
+        dst: 
+          ${{ steps.meta_ci_push.outputs.tags }}
+          localhost:5000/${{ env.BASE }}:latest
 
     - name: Push Developer docker image
-      if: ${{ github.event_name != 'pull_request' }}
+      if: ${{ !contains(github.ref, 'refs/heads/master') }}
       uses: akhilerm/tag-push-action@v2.0.0
       with:
         src: localhost:5000/${{ env.DEVELOPER }}:${{ steps.meta_developer.outputs.version }}
-        dst: ${{ steps.meta_developer_push.outputs.tags }}
+        dst:
+          ${{ steps.meta_developer_push.outputs.tags }}
+          localhost:5000/${{ env.DEVELOPER }}:latest
